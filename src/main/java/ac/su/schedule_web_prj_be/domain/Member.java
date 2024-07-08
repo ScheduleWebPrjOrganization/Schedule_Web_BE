@@ -27,6 +27,9 @@ public class Member {
     @Column(name = "user_type", nullable = false)
     private String userType;
 
+    @Column(name = "group_joined_at")
+    private Date group_joined_at;
+
     @ManyToOne
     @JoinColumn(name = "group_id")
     private StudyGroup studyGroup;
@@ -45,7 +48,4 @@ public class Member {
 
     @OneToMany(mappedBy = "member")
     private List<Subject> subjects;
-
-    @OneToMany(mappedBy = "member")
-    private List<Report> reports;
 }

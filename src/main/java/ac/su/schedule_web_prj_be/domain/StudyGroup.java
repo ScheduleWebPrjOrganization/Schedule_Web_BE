@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -12,7 +13,7 @@ import java.util.List;
 public class StudyGroup {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(name = "member_count", nullable = false)
     private Integer memberCount;
@@ -22,6 +23,9 @@ public class StudyGroup {
 
     @Column(name = "name", nullable = false)
     private String name;
+
+    @Column(name ="created_at", nullable = false)
+    private Date created_at;
 
     @OneToMany(mappedBy = "studyGroup")
     private List<Member> members;

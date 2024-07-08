@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Entity
 @Getter @Setter
 @Table(name = "report")
@@ -13,10 +15,18 @@ public class Report {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "챗 id", nullable = false)
+    @JoinColumn(name = "chat id", nullable = false)
     private GroupChat groupChat;
 
-    @ManyToOne
-    @JoinColumn(name = "회원 id", nullable = false)
-    private Member member;
+    @Column(nullable = false)
+    private String reported_user_id;
+
+    @Column(nullable = false)
+    private String reporter_id;
+
+    @Column(nullable = false)
+    private String status;
+
+    @Column(nullable = false)
+    private Date created_at;
 }

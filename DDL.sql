@@ -1,46 +1,17 @@
-DROP TABLE `subject_record`;
+DROP TABLE `group_chat`;
 
-CREATE TABLE `subject_record`
+CREATE TABLE `group_chat`
 (
-    `recorded_at`    DATE NOT NULL COMMENT '기록 날짜',
-    `stopped_at`    DATE NOT NULL COMMENT '기록 시간',
-    `subject_id`    BIGINT NOT NULL COMMENT '기록 id',
-    `id`    BIGINT NOT NULL COMMENT '과목 id',
-    PRIMARY KEY ( `subject_id` )
-) COMMENT = '수행 시간 기록';
-
-ALTER TABLE `subject_record`
-    ADD CONSTRAINT `subject_record_PK` PRIMARY KEY ( `subject_id` );
-
-
-DROP TABLE `report`;
-
-CREATE TABLE `report`
-(
-    `id`    BIGINT NOT NULL COMMENT '신고 id',
-    `챗 id`    BIGINT NOT NULL COMMENT '챗 id',
-    `회원 id`    VARCHAR(30) NOT NULL COMMENT '회원 id',
+    `content`    VARCHAR(255) NOT NULL COMMENT '채팅 내용',
+    `sent_at`    DATE NOT NULL COMMENT '채팅 발송 시간',
+    `member_id`    VARCHAR(30) NOT NULL COMMENT '회원 id',
+    `group_id`    BIGINT NOT NULL COMMENT '그룹 id',
+    `id`    BIGINT NOT NULL COMMENT '챗 id',
     PRIMARY KEY ( `id` )
-) COMMENT = '신고';
+) COMMENT = '그룹 채팅';
 
-ALTER TABLE `report`
-    ADD CONSTRAINT `report_PK` PRIMARY KEY ( `id` );
-
-
-DROP TABLE `task`;
-
-CREATE TABLE `task`
-(
-    `id`    BIGINT NOT NULL COMMENT '작업 id',
-    `name`    VARCHAR(30) NOT NULL COMMENT '작업명',
-    `status`    VARCHAR(30) NOT NULL COMMENT '달성 상태',
-    `member_id`    VARCHAR(30) COMMENT '회원 id',
-    `subject_id`    BIGINT COMMENT '과목 id',
-    PRIMARY KEY ( `id` )
-) COMMENT = '작업';
-
-ALTER TABLE `task`
-    ADD CONSTRAINT `task_PK` PRIMARY KEY ( `id` );
+ALTER TABLE `group_chat`
+    ADD CONSTRAINT `group_chat_PK` PRIMARY KEY ( `id` );
 
 
 DROP TABLE `memeber`;
@@ -52,8 +23,9 @@ CREATE TABLE `memeber`
     `email`    VARCHAR(30) NOT NULL COMMENT '이메일',
     `created_at`    DATE NOT NULL COMMENT '회원 생성 날짜',
     `user_type`    VARCHAR(30) NOT NULL COMMENT '회원 등급',
-    `group_id`    INTEGER NOT NULL COMMENT '그룹 id',
+    `group_id`    BIGINT NOT NULL COMMENT '그룹 id',
     `level`    VARCHAR(30) NOT NULL COMMENT '성실함 레벨',
+    `group_joined_at`    DATE COMMENT '그룹 가입일',
     PRIMARY KEY ( `id` )
 ) COMMENT = '회원';
 
@@ -61,30 +33,47 @@ ALTER TABLE `memeber`
     ADD CONSTRAINT `memeber_PK` PRIMARY KEY ( `id` );
 
 
-DROP TABLE `group_chat`;
+DROP TABLE `report`;
 
-CREATE TABLE `group_chat`
+CREATE TABLE `report`
 (
-    `content`    VARCHAR(255) NOT NULL COMMENT '채팅 내용',
-    `sent_at`    DATE NOT NULL COMMENT '채팅 발송 시간',
-    `member_id`    VARCHAR(30) NOT NULL COMMENT '회원 id',
-    `group_id`    INTEGER NOT NULL COMMENT '그룹 id',
-    `id`    BIGINT NOT NULL COMMENT '챗 id',
+    `id`    BIGINT NOT NULL COMMENT '신고 id',
+    `chat_id`    BIGINT NOT NULL COMMENT '챗 id',
+    `reported_user_id`    VARCHAR(30) NOT NULL COMMENT '신고 대상',
+    `reporter_id`    VARCHAR(30) NOT NULL COMMENT '신고자',
+    `status`    VARCHAR(30) NOT NULL COMMENT '상태',
+    `created_at`    DATE NOT NULL COMMENT '신고 시각',
     PRIMARY KEY ( `id` )
-) COMMENT = '그룹 채팅';
+) COMMENT = '신고';
 
-ALTER TABLE `group_chat`
-    ADD CONSTRAINT `group_chat_PK` PRIMARY KEY ( `id` );
+ALTER TABLE `report`
+    ADD CONSTRAINT `report_PK` PRIMARY KEY ( `id` );
+
+
+DROP TABLE `statistic`;
+
+CREATE TABLE `statistic`
+(
+    `total_record`    INTEGER NOT NULL COMMENT '누적 공부 시간',
+    `subject_id`    BIGINT COMMENT '과목 id',
+    `memeber_id`    VARCHAR(30) COMMENT '회원 id',
+    `id`    BIGINT NOT NULL COMMENT '통계 id',
+    PRIMARY KEY ( `id` )
+) COMMENT = '통계';
+
+ALTER TABLE `statistic`
+    ADD CONSTRAINT `statistic_PK` PRIMARY KEY ( `id` );
 
 
 DROP TABLE `study_group`;
 
 CREATE TABLE `study_group`
 (
-    `id`    INTEGER NOT NULL COMMENT '그룹 id',
+    `id`    BIGINT NOT NULL COMMENT '그룹 id',
     `member_count`    INTEGER NOT NULL COMMENT '인원수',
     `description`    VARCHAR(255) NOT NULL COMMENT '그룹 설명',
     `name`    VARCHAR(30) NOT NULL COMMENT '그룹 이름',
+    `created_at`    DATE NOT NULL COMMENT '그룹 생성일',
     PRIMARY KEY ( `id` )
 ) COMMENT = '스터디 그룹';
 
@@ -106,18 +95,34 @@ ALTER TABLE `subject`
     ADD CONSTRAINT `subject_PK` PRIMARY KEY ( `id` );
 
 
-DROP TABLE `statistic`;
+DROP TABLE `subject_record`;
 
-CREATE TABLE `statistic`
+CREATE TABLE `subject_record`
 (
-    `total_record`    INTEGER NOT NULL COMMENT '누적 공부 시간',
-    `subject_id`    BIGINT COMMENT '과목 id',
-    `memeber_id`    VARCHAR(30) COMMENT '회원 id',
-    `id1`    BIGINT NOT NULL COMMENT '통계 id',
-    PRIMARY KEY ( `id1` )
-) COMMENT = '통계';
+    `recorded_at`    DATE NOT NULL COMMENT '기록 날짜',
+    `stopped_at`    DATE NOT NULL COMMENT '기록 시간',
+    `subject_id`    BIGINT NOT NULL COMMENT '기록 id',
+    `id`    BIGINT NOT NULL COMMENT '과목 id',
+    PRIMARY KEY ( `subject_id` )
+) COMMENT = '수행 시간 기록';
 
-ALTER TABLE `statistic`
-    ADD CONSTRAINT `statistic_PK` PRIMARY KEY ( `id1` );
+ALTER TABLE `subject_record`
+    ADD CONSTRAINT `subject_record_PK` PRIMARY KEY ( `subject_id` );
+
+
+DROP TABLE `task`;
+
+CREATE TABLE `task`
+(
+    `id`    BIGINT NOT NULL COMMENT '작업 id',
+    `name`    VARCHAR(30) NOT NULL COMMENT '작업명',
+    `status`    VARCHAR(30) NOT NULL COMMENT '달성 상태',
+    `member_id`    VARCHAR(30) COMMENT '회원 id',
+    `subject_id`    BIGINT COMMENT '과목 id',
+    PRIMARY KEY ( `id` )
+) COMMENT = '작업';
+
+ALTER TABLE `task`
+    ADD CONSTRAINT `task_PK` PRIMARY KEY ( `id` );
 
 

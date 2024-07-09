@@ -13,8 +13,8 @@ public class StudyGroupController {
     private final StudyGroupService studyGroupService;
 
     @GetMapping()
-    public String tempStudyGroup() {
-        return "temp";
+    public String AllStudyGroup() {
+        return studyGroupService.FindAllStudyGroup().toString();
     }
 
     @PostMapping()

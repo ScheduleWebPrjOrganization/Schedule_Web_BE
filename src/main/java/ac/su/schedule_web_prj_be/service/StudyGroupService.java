@@ -34,11 +34,15 @@ public class StudyGroupService {
         return studyGroupRepository.save(studyGroup);
     }
 
-    public void joinStudyGroup(Long id, Member member) {
+    public void JoinStudyGroup(Long id, Member member) {
         StudyGroup studyGroup = studyGroupRepository.findById(id).get();
         List<Member> memberList = studyGroup.getMembers();
         memberList.add(member);
         studyGroup.setMembers(memberList);
         studyGroupRepository.updateStudyGroupMembersById(id, memberList);
+    }
+
+    public List<StudyGroup> FindAllStudyGroup() {
+        return studyGroupRepository.findAll();
     }
 }

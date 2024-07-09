@@ -12,7 +12,7 @@ import java.util.List;
 public interface GroupChatRepository  extends JpaRepository<GroupChat, Long>, QuerydslPredicateExecutor<GroupChat> {
 
     // 특정 유저의 채팅 조회
-    List<GroupChat> findByMemberId(String memberId);
-    // 특정 스터디 그룹의 채팅 조회
-    List<GroupChat> findByStudyGroupId(Integer studyGroupId);
+//    List<GroupChat> findByMemberId(String memberId);
+//    // 특정 스터디 그룹의 채팅 조회
+//    List<GroupChat> findByStudyGroupId(Integer studyGroupId);
 }

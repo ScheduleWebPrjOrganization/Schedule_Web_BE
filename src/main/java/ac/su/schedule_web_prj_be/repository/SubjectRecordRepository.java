@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface SubjectRecordRepository extends JpaRepository<SubjectRecord, Long> {
     // 과목 아이디로 기록 조회
-    List<SubjectRecord> findBySubjectId(Long subjectId);
+//    List<SubjectRecord> findBySubjectId(Long subjectId);
 }

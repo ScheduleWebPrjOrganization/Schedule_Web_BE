@@ -20,14 +20,25 @@ public class StudyGroupService {
         studyGroup.setName(name);
         studyGroup.setMembers(members);
         studyGroup.setMemberCount(memberCount);
+
+        return studyGroupRepository.save(studyGroup);
     }
 
-    public StudyGroup joinStudyGroup(Long id, Member member) {
-        StudyGroup studyGroup = studyGroupRepository.findByStudyGroupId(id).get();
+    public StudyGroup buildStudyGroup(String name, String description, int memberCount) {
+        StudyGroup studyGroup = new StudyGroup();
+        studyGroup.setCreated_at(new Date());
+        studyGroup.setDescription(description);
+        studyGroup.setName(name);
+        studyGroup.setMemberCount(memberCount);
+
+        return studyGroupRepository.save(studyGroup);
+    }
+
+    public void joinStudyGroup(Long id, Member member) {
+        StudyGroup studyGroup = studyGroupRepository.findById(id).get();
         List<Member> memberList = studyGroup.getMembers();
         memberList.add(member);
         studyGroup.setMembers(memberList);
         studyGroupRepository.updateStudyGroupMembersById(id, memberList);
-
     }
 }

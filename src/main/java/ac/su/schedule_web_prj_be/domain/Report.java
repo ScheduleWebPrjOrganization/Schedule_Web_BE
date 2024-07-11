@@ -25,7 +25,7 @@ public class Report {
     private String reporter_id;
 
     @Column(nullable = false)
-    private String status;
+    private ReportStatus status;
 
     @Column(nullable = false)
     private Date created_at;

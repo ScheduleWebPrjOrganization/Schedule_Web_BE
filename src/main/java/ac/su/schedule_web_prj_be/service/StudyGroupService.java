@@ -45,4 +45,22 @@ public class StudyGroupService {
     public List<StudyGroup> FindAllStudyGroup() {
         return studyGroupRepository.findAll();
     }
+
+
+    public StudyGroup getStudyGroup(Long id) {
+        try {
+            return studyGroupRepository.findById(id).get();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public StudyGroup getStudyGroup(String name) {
+        try {
+            return studyGroupRepository.findByName(name).get();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
 }

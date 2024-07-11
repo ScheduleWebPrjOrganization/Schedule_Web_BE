@@ -17,6 +17,8 @@ public interface StudyGroupRepository extends JpaRepository<StudyGroup, Long> {
     // 이거이상함 / ash
 //    List<StudyGroup> findAllByOrderByCreatedAtDesc();
 
+    Optional<StudyGroup> findByName(String name);
+
     @Modifying
     @Query("UPDATE StudyGroup s SET s.members = :members WHERE s.id = :id")
     void updateStudyGroupMembersById(@Param("id") Long id, @Param("members") List<Member> members);

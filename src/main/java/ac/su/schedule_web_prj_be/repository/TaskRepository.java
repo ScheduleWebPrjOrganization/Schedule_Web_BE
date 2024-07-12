@@ -13,4 +13,5 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 
     // 특정 유저의 특정 과목에 대한 작업 조회
     List<Task> findByMemberIdAndSubjectId(String memberId, Long subjectId);
+
 }

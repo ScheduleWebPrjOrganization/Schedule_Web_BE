@@ -25,4 +25,5 @@ public class Task {
     @ManyToOne
     @JoinColumn(name = "subject_id")
     private Subject subject;
+
 }

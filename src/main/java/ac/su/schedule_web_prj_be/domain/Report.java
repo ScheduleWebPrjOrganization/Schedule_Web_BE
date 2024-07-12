@@ -15,7 +15,7 @@ public class Report {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "chat_id", nullable = false)
+    @JoinColumn(name = "group_chat_id", nullable = false)
     private GroupChat groupChat;
 
     @Column(name = "reported_user_id", nullable = false)

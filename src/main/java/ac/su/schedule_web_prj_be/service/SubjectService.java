@@ -12,14 +12,14 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-@RequiredArgsConstructor
 @Service
-public class SubjectSerivce {
+@RequiredArgsConstructor
+public class SubjectService {
 
     private SubjectRepository subjectRepository;
     private MemberRepository memberRepository;
 
-    public SubjectSerivce(SubjectRepository subjectRepository, MemberRepository memberRepository) {
+    public SubjectService(SubjectRepository subjectRepository, MemberRepository memberRepository) {
         this.subjectRepository = subjectRepository;
         this.memberRepository = memberRepository;
     }

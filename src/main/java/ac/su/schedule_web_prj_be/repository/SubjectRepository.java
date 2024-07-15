@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface SubjectRepository extends JpaRepository<Subject, Long> {
     // 유저 아이디로 과목 조회
-    List<Subject> findByMemberId(String memberId);
+//    List<Subject> findByMemberId(String memberId);
 }

@@ -6,14 +6,19 @@ import lombok.Setter;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
+// PR 중 수정하기 - PR 요청한 브랜치가 수정됩니다.
 @Entity
 @Getter @Setter
 @Table(name = "member")
 public class Member {
     @Id
     @Column(name = "id")
-    private String id;
+    private Long id;
+
+    @Column
+    private String name;
 
     @Column(name = "pwd", nullable = false)
     private String pwd;
@@ -51,4 +56,8 @@ public class Member {
 
     @OneToMany(mappedBy = "member")
     private List<Subject> subjects;
+
+    public Member() {
+        this.id = UUID.randomUUID().toString();
+    }
 }

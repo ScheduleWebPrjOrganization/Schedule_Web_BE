@@ -9,10 +9,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Repository
-public interface GroupChatRepository  extends JpaRepository<GroupChat, Long>, QuerydslPredicateExecutor<GroupChat> {
+public interface GroupChatRepository  extends JpaRepository<GroupChat, Long>{
 
     // 특정 유저의 채팅 조회
-    List<GroupChat> findByMemberId(String memberId);
-    // 특정 스터디 그룹의 채팅 조회
-    List<GroupChat> findByStudyGroupId(Integer studyGroupId);
+//    List<GroupChat> findByMemberId(String memberId);
+//    // 특정 스터디 그룹의 채팅 조회
+//    List<GroupChat> findByStudyGroupId(Integer studyGroupId);
 }
+

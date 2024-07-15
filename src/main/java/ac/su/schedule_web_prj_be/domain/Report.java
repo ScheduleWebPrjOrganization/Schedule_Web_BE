@@ -18,16 +18,15 @@ public class Report {
     @JoinColumn(name = "group_chat_id", nullable = false)
     private GroupChat groupChat;
 
-    @Column(name = "reported_user_id", nullable = false)
+    @Column(nullable = false)
     private String reportedUserId;
 
-    @Column(name = "reporter_id", nullable = false)
+    @Column(nullable = false)
     private String reporterId;
 
-    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private ReportStatus status;
+    private String status;
 
-    @Column(name = "created_at", nullable = false)
+    @Column(nullable = false)
     private Date createdAt;
 }

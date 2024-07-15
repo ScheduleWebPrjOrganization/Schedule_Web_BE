@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -15,6 +16,7 @@ import java.util.UUID;
 public class Member {
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
@@ -27,7 +29,7 @@ public class Member {
     private String email;
 
     @Column(name = "created_at", nullable = false)
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
     @Column(name = "user_type", nullable = false)
     private String userType;
@@ -53,8 +55,4 @@ public class Member {
 
     @OneToMany(mappedBy = "member")
     private List<Subject> subjects;
-
-    public Member() {
-        this.id = UUID.randomUUID().toString();
-    }
 }

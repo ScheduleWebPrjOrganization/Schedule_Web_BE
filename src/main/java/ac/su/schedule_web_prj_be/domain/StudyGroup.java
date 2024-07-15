@@ -25,7 +25,7 @@ public class StudyGroup {
     private String name;
 
     @Column(name ="created_at", nullable = false)
-    private Date created_at;
+    private Date createdAt;
 
     @OneToMany(mappedBy = "studyGroup")
     private List<Member> members;

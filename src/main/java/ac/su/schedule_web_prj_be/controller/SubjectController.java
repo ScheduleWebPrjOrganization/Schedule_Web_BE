@@ -1,7 +1,9 @@
 package ac.su.schedule_web_prj_be.controller;
 
+import ac.su.schedule_web_prj_be.domain.Member;
 import ac.su.schedule_web_prj_be.domain.Subject;
 import ac.su.schedule_web_prj_be.domain.Task;
+import ac.su.schedule_web_prj_be.service.MemberService;
 import ac.su.schedule_web_prj_be.service.SubjectService;
 import ac.su.schedule_web_prj_be.service.TaskService;
 import org.springframework.http.HttpStatus;
@@ -16,10 +18,12 @@ public class SubjectController {
 
     private final SubjectService subjectService;
     private final TaskService taskService;
+    private final MemberService memberService;
 
-    public SubjectController(SubjectService subjectService, TaskService taskService) {
+    public SubjectController(SubjectService subjectService, TaskService taskService, MemberService memberService) {
         this.subjectService = subjectService;
         this.taskService = taskService;
+        this.memberService = memberService;
     }
     // 모든 과목 조회
     @GetMapping
@@ -37,7 +41,7 @@ public class SubjectController {
 
     // 과목 추가
     @PostMapping("/members/{memberId}")
-    public ResponseEntity<Subject> addSubject(@PathVariable("memberId") String memberId, @RequestBody Subject subject) {
+    public ResponseEntity<Subject> addSubject(@PathVariable("memberId") Long memberId, @RequestBody Subject subject) {
         Subject newSubject = subjectService.addSubject(memberId, subject.getName());
         return ResponseEntity.status(HttpStatus.CREATED).body(newSubject);
     }
@@ -51,8 +55,8 @@ public class SubjectController {
 
     // 유저 id로 과목 조회
     @GetMapping("/members/{memberId}")
-    public ResponseEntity<List<Subject>> getSubjects(@PathVariable("memberId") String memberId) {
-        List<Subject> subjects = subjectService.getSubjectsByMemberId(memberId);
+    public ResponseEntity<List<Subject>> getSubjects(@PathVariable("memberId") Long memberId) {
+        List<Subject> subjects = subjectService.getSubjectsByMemberId(memberService.getMemberById(memberId));
         return ResponseEntity.ok(subjects);
     }
 

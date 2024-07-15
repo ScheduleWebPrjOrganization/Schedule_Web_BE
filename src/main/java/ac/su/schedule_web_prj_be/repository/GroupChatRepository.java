@@ -16,3 +16,4 @@ public interface GroupChatRepository  extends JpaRepository<GroupChat, Long>{
 //    // 특정 스터디 그룹의 채팅 조회
 //    List<GroupChat> findByStudyGroupId(Integer studyGroupId);
 }
+

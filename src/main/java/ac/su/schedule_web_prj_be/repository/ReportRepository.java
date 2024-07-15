@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 public interface ReportRepository extends JpaRepository<Report, Long> {
+
     // 그룹 내부의 채팅 ID로 검색
     List<Report> findByGroupChatId(Long groupChatId);
 
@@ -28,4 +29,5 @@ public interface ReportRepository extends JpaRepository<Report, Long> {
 
     // 날짜로 조회 (특정 날짜 범위)
     List<Report> findByCreatedAtBetween(Date startDate, Date endDate);
+  
 }

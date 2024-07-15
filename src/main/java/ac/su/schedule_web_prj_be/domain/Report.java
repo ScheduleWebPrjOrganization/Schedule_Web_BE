@@ -18,15 +18,15 @@ public class Report {
     @JoinColumn(name = "chat id", nullable = false)
     private GroupChat groupChat;
 
-    @Column(nullable = false)
-    private String reported_user_id;
+    @Column(name = "reported_user_id",nullable = false)
+    private String reportedUserId;
 
-    @Column(nullable = false)
-    private String reporter_id;
+    @Column(name = "reporter_id",nullable = false)
+    private String reporterId;
 
     @Column(nullable = false)
     private String status;
 
-    @Column(nullable = false)
-    private Date created_at;
+    @Column(name = "created_at",nullable = false)
+    private Date createdAt;
 }

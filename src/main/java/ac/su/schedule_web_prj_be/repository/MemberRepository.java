@@ -1,6 +1,7 @@
 package ac.su.schedule_web_prj_be.repository;
 
 import ac.su.schedule_web_prj_be.domain.Member;
+import ac.su.schedule_web_prj_be.domain.StudyGroup;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Date;
@@ -9,14 +10,13 @@ import java.util.Optional;
 
 public interface MemberRepository extends JpaRepository<Member, String> {
 
-    // 기본 쿼리 메서드
-    Optional<Member> findByUserId(String userId);
+    Optional<Member> findByEmail(String email);
 
     // 유저타입으로 검색 (관리자인지 아닌지)
     List<Member> findByUserType(String userType);
 
     // 특정 스터그룹에 속한 유저 검색
-    List<Member> findByStudyGroupId(Long studyGroupId);
+    List<Member> findByStudyGroup(StudyGroup studyGroupId);
 
     // 계정 생성 시각으로 조회
     List<Member> findByCreatedAtAfter(Date date);

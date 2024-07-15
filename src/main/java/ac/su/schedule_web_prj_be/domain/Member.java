@@ -14,8 +14,11 @@ import java.util.UUID;
 @Table(name = "member")
 public class Member {
     @Id
-    @Column(name = "id", updatable = false, nullable = false)
-    private String id;
+    @Column(name = "id")
+    private Long id;
+
+    @Column
+    private String name;
 
     @Column(name = "pwd", nullable = false)
     private String pwd;

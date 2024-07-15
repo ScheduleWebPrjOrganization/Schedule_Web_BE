@@ -14,6 +14,7 @@ import java.util.List;
 
 public interface TaskRepository extends JpaRepository<Task, Long> {
 //    // 특정 유저의 과목 조회
+
 //    List<Task> findByMemberId(String memberId);
 //
 //   // 과목으로 작업 조회

@@ -2,8 +2,11 @@ package ac.su.schedule_web_prj_be.repository;
 
 import ac.su.schedule_web_prj_be.domain.Task;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
 import java.util.List;
 
+@Repository
 public interface TaskRepository extends JpaRepository<Task, Long> {
     // 특정 유저의 과목 조회
     List<Task> findByMemberId(String memberId);

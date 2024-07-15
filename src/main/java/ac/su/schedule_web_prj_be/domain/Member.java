@@ -9,7 +9,7 @@ import java.util.List;
 
 @Entity
 @Getter @Setter
-@Table(name = "memeber")
+@Table(name = "member")
 public class Member {
     @Id
     @Column(name = "id")
@@ -29,6 +29,9 @@ public class Member {
 
     @Column(name = "group_joined_at")
     private Date group_joined_at;
+
+//    @Column(name = "learning_now")  // 현재 공부중인 것을 표시하기 위한 컬럼
+//    private boolean learning_now;
 
     @ManyToOne
     @JoinColumn(name = "group_id")

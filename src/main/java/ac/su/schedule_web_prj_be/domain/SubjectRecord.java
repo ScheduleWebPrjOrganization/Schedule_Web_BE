@@ -20,6 +20,12 @@ public class SubjectRecord {
     @Column(name = "stopped_at", nullable = false)
     private Date stoppedAt;
 
+//    @Column(name = "paused_at")  // 일시정지 기능입니다.
+//    private Date pausedAt;
+
+//    @Column(name = "paused_duration", nullable = false)  // 일시정지 시간을 계산하는 기능입니다.
+//    private long pausedDuration = 0;
+
     @ManyToOne
     @JoinColumn(name = "subject_id", nullable = false)
     private Subject subject;

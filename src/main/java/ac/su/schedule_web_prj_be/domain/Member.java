@@ -9,11 +9,14 @@ import java.util.List;
 
 @Entity
 @Getter @Setter
-@Table(name = "memeber")
+@Table(name = "member")
 public class Member {
     @Id
     @Column(name = "id")
-    private String id;
+    private Long id;
+
+    @Column
+    private String name;
 
     @Column(name = "pwd", nullable = false)
     private String pwd;

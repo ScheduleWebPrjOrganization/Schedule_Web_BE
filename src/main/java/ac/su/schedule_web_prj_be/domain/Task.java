@@ -3,6 +3,10 @@ package ac.su.schedule_web_prj_be.domain;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter @Setter
@@ -15,8 +19,19 @@ public class Task {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
-    private String status;
+    private TaskStatus status;
+
+    @Column(name = "created_at", nullable = false)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private LocalDate createdAt;
+
+    @Column(name = "member_id", insertable = false, updatable = false)
+    private String memberId;
+
+    @Column(name = "hours_to_complete", nullable = false)
+    private int hoursToComplete;
 
     @ManyToOne
     @JoinColumn(name = "member_id")
@@ -25,4 +40,16 @@ public class Task {
     @ManyToOne
     @JoinColumn(name = "subject_id")
     private Subject subject;
+
+    public Task() {
+        this.createdAt = LocalDate.now();
+    }
+
+    public Task(String name, TaskStatus status, int hoursToComplete, Member member, Subject subject) {
+        this.name = name;
+        this.status = status;
+        this.createdAt = LocalDate.now();
+        this.hoursToComplete = hoursToComplete;
+        this.subject = subject;
+    }
 }

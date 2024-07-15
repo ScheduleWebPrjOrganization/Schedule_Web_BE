@@ -19,7 +19,7 @@ public class ReportService {
     // Report 생성 - 신고자, 신고대상, 챗 번호, 내용
     public Report createReport(Report report) {
         report.setCreatedAt(new Date());
-        report.setStatus(ReportStatus.WAITING);
+        report.setStatus(ReportStatus.WAITING.toString());
         return reportRepository.save(report);
     }
 
@@ -73,7 +73,7 @@ public class ReportService {
         Optional<Report> reportOpt = reportRepository.findById(id);
         if (reportOpt.isPresent()) {
             Report report = reportOpt.get();
-            report.setStatus(status);
+            report.setStatus(status.toString());
             return reportRepository.save(report);
         }
         return null;

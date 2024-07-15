@@ -13,9 +13,10 @@ import java.util.List;
 @Service
 public class StudyGroupService {
     private final StudyGroupRepository studyGroupRepository;
+
     public StudyGroup buildStudyGroup(String name, String description, List<Member> members, int memberCount) {
         StudyGroup studyGroup = new StudyGroup();
-        studyGroup.setCreated_at(new Date());
+        studyGroup.setCreatedAt(new Date());
         studyGroup.setDescription(description);
         studyGroup.setName(name);
         studyGroup.setMembers(members);
@@ -26,7 +27,7 @@ public class StudyGroupService {
 
     public StudyGroup buildStudyGroup(String name, String description, int memberCount) {
         StudyGroup studyGroup = new StudyGroup();
-        studyGroup.setCreated_at(new Date());
+        studyGroup.setCreatedAt(new Date());
         studyGroup.setDescription(description);
         studyGroup.setName(name);
         studyGroup.setMemberCount(memberCount);

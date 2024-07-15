@@ -25,7 +25,7 @@ public class MemberController {
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginRequestDTO request) {
-        Optional<Member> optionalMember = memberService.findId(request.getId());
+        Optional<Member> optionalMember = memberService.findName(request.getName());
 
         if (!optionalMember.isPresent()) {
             return ResponseEntity.badRequest().body("회원이 존재하지 않습니다");
@@ -42,7 +42,7 @@ public class MemberController {
 
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody RegisterRequestDTO request) {
-        Optional<Member> existingMemberById = memberService.findId(request.getId());
+        Optional<Member> existingMemberById = memberService.findName(request.getName());
         if (existingMemberById.isPresent()) {
             return ResponseEntity.badRequest().body("아이디가 이미 존재합니다");
         }
@@ -66,7 +66,7 @@ public class MemberController {
         }
 
         Member newMember = new Member();
-        newMember.setId(request.getId());
+        newMember.setName(request.getName());
         newMember.setPwd(passwordEncoder.encode(request.getPwd()));
         newMember.setEmail(request.getEmail());
         newMember.setLevel(UserTypeEnum.User.toString());

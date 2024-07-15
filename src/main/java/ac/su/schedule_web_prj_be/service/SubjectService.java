@@ -16,15 +16,9 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class SubjectService {
 
-    private SubjectRepository subjectRepository;
-    private MemberRepository memberRepository;
-
-    // 의존성 주입
-    @Autowired
-    public SubjectService(SubjectRepository subjectRepository, MemberRepository memberRepository) {
-        this.subjectRepository = subjectRepository;
-        this.memberRepository = memberRepository;
-    }
+    private final MemberService memberService;
+    private final SubjectRepository subjectRepository;
+    private final MemberRepository memberRepository;
 
     // 모든 과목 조회
     public List<Subject> getAllSubject() {
@@ -39,7 +33,7 @@ public class SubjectService {
 
 
     // 과목 추가
-    public Subject addSubject(String memberId, String subjectName) {
+    public Subject addSubject(Long memberId, String subjectName) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new IllegalArgumentException("유효하지 않은 memberId"));
         Subject subject = new Subject();
@@ -59,9 +53,10 @@ public class SubjectService {
     }
 
     // 유저 id로 과목 조회
-    public List<Subject> getSubjectsByMemberId(String memberId) {
+    // 07-16 wildmantle: subject 도메인에 memeberId 가없어서 member 객체로 검색해야할껄?
+    public List<Subject> getSubjectsByMemberId(Member member) {
 
-        return subjectRepository.findByMemberId(memberId);
+        return subjectRepository.findByMember(member);
     }
 
 }

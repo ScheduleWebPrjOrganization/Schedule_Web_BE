@@ -8,7 +8,7 @@ import java.util.Date;
 
 @Getter @Setter
 public class RegisterRequestDTO {
-    public String id;
+    public String name;
     public String pwd;
     public String verifyingPwd;
     public String email;

@@ -16,6 +16,7 @@ import java.util.UUID;
 public class Member {
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
@@ -54,8 +55,4 @@ public class Member {
 
     @OneToMany(mappedBy = "member")
     private List<Subject> subjects;
-
-    public Member() {
-        this.id = UUID.randomUUID().toString();
-    }
 }

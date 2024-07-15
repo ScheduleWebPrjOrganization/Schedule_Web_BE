@@ -19,14 +19,14 @@ public class Report {
     private GroupChat groupChat;
 
     @Column(nullable = false)
-    private String reported_user_id;
+    private String reportedUserId;
 
     @Column(nullable = false)
-    private String reporter_id;
+    private String reporterId;
 
     @Column(nullable = false)
     private String status;
 
     @Column(nullable = false)
-    private Date created_at;
+    private Date createdAt;
 }

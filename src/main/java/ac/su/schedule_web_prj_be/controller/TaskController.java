@@ -8,6 +8,7 @@ import ac.su.schedule_web_prj_be.service.MemberService;
 import ac.su.schedule_web_prj_be.service.SubjectService;
 import ac.su.schedule_web_prj_be.service.TaskService;
 // import ac.su.schedule_web_prj_be.service.MemberService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,28 +21,12 @@ import java.util.Map;
 import java.util.HashMap;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/tasks")
 public class TaskController {
 
     private final TaskService taskService;
     private final SubjectService subjectService;
-    private final MemberService memberService;
-
-    @Autowired
-    public TaskController(TaskService taskService, SubjectService subjectService, MemberService memberService) {
-        this.taskService = taskService;
-        this.subjectService = subjectService;
-        this.memberService = memberService;
-    }
-
-//    @Autowired
-//    public TaskController(TaskService taskService, SubjectService subjectService) {
-//        this.taskService = taskService;
-//        this.subjectService = subjectService;
-//    }
-
-    // @Autowired
-    // private MemberService memberService;
 
     @PostMapping
     public ResponseEntity<Task> createTask(@RequestBody Task task) {

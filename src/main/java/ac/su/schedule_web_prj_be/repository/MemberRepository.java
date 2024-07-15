@@ -8,9 +8,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-public interface MemberRepository extends JpaRepository<Member, String> {
+public interface MemberRepository extends JpaRepository<Member, Long> {
 
     Optional<Member> findByEmail(String email);
+
+    Optional<Member> findByName(String name);
 
     // 유저타입으로 검색 (관리자인지 아닌지)
     List<Member> findByUserType(String userType);

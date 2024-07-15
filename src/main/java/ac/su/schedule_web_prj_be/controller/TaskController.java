@@ -1,11 +1,15 @@
 package ac.su.schedule_web_prj_be.controller;
 
 import ac.su.schedule_web_prj_be.domain.Member;
+import ac.su.schedule_web_prj_be.domain.Subject;
 import ac.su.schedule_web_prj_be.domain.Task;
 import ac.su.schedule_web_prj_be.domain.TaskStatus;
+import ac.su.schedule_web_prj_be.service.MemberService;
+import ac.su.schedule_web_prj_be.service.SubjectService;
 import ac.su.schedule_web_prj_be.service.TaskService;
 // import ac.su.schedule_web_prj_be.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,8 +23,22 @@ import java.util.HashMap;
 @RequestMapping("/api/tasks")
 public class TaskController {
 
+    private final TaskService taskService;
+    private final SubjectService subjectService;
+    private final MemberService memberService;
+
     @Autowired
-    private TaskService taskService;
+    public TaskController(TaskService taskService, SubjectService subjectService, MemberService memberService) {
+        this.taskService = taskService;
+        this.subjectService = subjectService;
+        this.memberService = memberService;
+    }
+
+//    @Autowired
+//    public TaskController(TaskService taskService, SubjectService subjectService) {
+//        this.taskService = taskService;
+//        this.subjectService = subjectService;
+//    }
 
     // @Autowired
     // private MemberService memberService;
@@ -83,5 +101,13 @@ public class TaskController {
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
         return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/{subjectId}/tasks")
+    public ResponseEntity<Task> addTaskToSubject(@PathVariable("subjectId") Long subjectId, @RequestBody Task task) {
+        Subject subject = subjectService.getSubjectById(subjectId);
+        task.setSubject(subject);
+        Task newTask = taskService.createTask(task);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newTask);
     }
 }

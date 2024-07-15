@@ -19,6 +19,8 @@ public class SubjectService {
     private SubjectRepository subjectRepository;
     private MemberRepository memberRepository;
 
+    // 의존성 주입
+    @Autowired
     public SubjectService(SubjectRepository subjectRepository, MemberRepository memberRepository) {
         this.subjectRepository = subjectRepository;
         this.memberRepository = memberRepository;

@@ -6,13 +6,14 @@ import lombok.Setter;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Getter @Setter
 @Table(name = "member")
 public class Member {
     @Id
-    @Column(name = "id")
+    @Column(name = "id", updatable = false, nullable = false)
     private String id;
 
     @Column(name = "pwd", nullable = false)
@@ -48,4 +49,8 @@ public class Member {
 
     @OneToMany(mappedBy = "member")
     private List<Subject> subjects;
+
+    public Member() {
+        this.id = UUID.randomUUID().toString();
+    }
 }

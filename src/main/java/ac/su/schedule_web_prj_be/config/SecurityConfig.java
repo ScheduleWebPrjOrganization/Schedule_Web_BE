@@ -10,6 +10,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        // 그냥 수정하기 - PR 중 잘못하는 짓입니다.
         http
                 .csrf(csrf -> csrf.disable())  // CSRF 비활성화 (선택 사항)
                 .authorizeHttpRequests(auth -> auth

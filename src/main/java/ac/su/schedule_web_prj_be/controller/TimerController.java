@@ -24,16 +24,16 @@ public class TimerController {
     }
 
     // 일시정지 기능
-//    @PostMapping("/pause/{id}")
-//    public SubjectRecord pauseTimer(@PathVariable Long id) {
-//        return timerService.pauseTimer(id);
-//    }
+    @PostMapping("/pause/{id}")
+    public SubjectRecord pauseTimer(@PathVariable Long id) {
+        return timerService.pauseTimer(id);
+    }
 
     // 일시정지 재개 기능
-//    @PostMapping("/resume/{id}")
-//    public SubjectRecord resumeTimer(@PathVariable Long id) {
-//        return timerService.resumeTimer(id);
-//    }
+    @PostMapping("/resume/{id}")
+    public SubjectRecord resumeTimer(@PathVariable Long id) {
+        return timerService.resumeTimer(id);
+    }
 
     // 시간 계산
     @GetMapping("/elapsed/{id}")

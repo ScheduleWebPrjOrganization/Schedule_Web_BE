@@ -30,11 +30,13 @@ public class TaskController {
         }
     }
 
+    // 계획 생성
     @PostMapping
     public Task createTask(@RequestBody Task task) {
         return taskService.createTask(task);
     }
 
+    // 계획 변경
     @PutMapping("/id")
     public ResponseEntity<Task> updateTask(@PathVariable Long id, @RequestBody Task task) {
         try {
@@ -45,6 +47,7 @@ public class TaskController {
         }
     }
 
+    // 상태 변경
     @PutMapping("/id/status")
     public ResponseEntity<Task> updateStatus(@PathVariable Long id, @RequestBody String status) {
         try {

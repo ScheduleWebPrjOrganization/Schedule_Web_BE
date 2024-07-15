@@ -25,6 +25,7 @@ public class TaskService {
         return taskRepository.save(task);
     }
 
+    // 계획 수정
     public Task updateTask(Long id, Task task) { // Task 변경
         Optional<Task> optionalTask = taskRepository.findById(id);
         if (optionalTask.isPresent()) {
@@ -40,11 +41,12 @@ public class TaskService {
         taskRepository.deleteById(id);
     }
 
-    public Task updateStatus(Long id, String status) { // 계획 상태 변경
+    // 계획 상태 변경
+    public Task updateStatus(Long id, String status) {
         Optional<Task> optionalTask = taskRepository.findById(id);
         if (optionalTask.isPresent()) {
             Task existingTask = optionalTask.get();
-//            existingTask.setStatus(status);
+            existingTask.setStatus(status);       // 상태 변경
             existingTask.setStatus(determineStatusSymbol(status)); // 상태 심볼 업데이트
             return taskRepository.save(existingTask);
         } else {
@@ -52,7 +54,8 @@ public class TaskService {
         }
     }
 
-    private String determineStatusSymbol(String status) { // 계획 상태 변경 마크
+    // 계획 상태 변경 마크
+    private String determineStatusSymbol(String status) {
         return switch (status.toLowerCase()) {
             case "complete" -> "○"; // 계획 완료
             case "in-progress" -> "△"; // 계획 진행중

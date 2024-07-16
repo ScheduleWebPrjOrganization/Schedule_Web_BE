@@ -1,5 +1,6 @@
 package ac.su.schedule_web_prj_be.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,6 +28,7 @@ public class Task {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate createdAt;
 
+    @JsonIgnore
     @Column(name = "member_id", insertable = false, updatable = false)
     private String memberId;
 
@@ -51,5 +53,8 @@ public class Task {
         this.createdAt = LocalDate.now();
         this.hoursToComplete = hoursToComplete;
         this.subject = subject;
+    }
+
+    public void setPriority(int i) {
     }
 }

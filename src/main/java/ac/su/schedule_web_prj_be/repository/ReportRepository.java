@@ -29,5 +29,5 @@ public interface ReportRepository extends JpaRepository<Report, Long> {
 
     // 날짜로 조회 (특정 날짜 범위)
     List<Report> findByCreatedAtBetween(Date startDate, Date endDate);
-  
+
 }

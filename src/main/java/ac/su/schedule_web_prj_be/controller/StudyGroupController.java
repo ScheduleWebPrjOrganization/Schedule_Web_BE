@@ -37,8 +37,8 @@ public class StudyGroupController {
 
     @PostMapping()
     public String createStudyGroup(@RequestParam String name,
-                                 @RequestParam String description,
-                                 @RequestParam int memberCount) {
+                                   @RequestParam String description,
+                                   @RequestParam int memberCount) {
 
         StudyGroup studyGroup = studyGroupService.buildStudyGroup
                 (name, description, memberCount);

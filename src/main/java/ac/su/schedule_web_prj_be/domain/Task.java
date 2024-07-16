@@ -7,7 +7,6 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @Getter @Setter
@@ -22,7 +21,7 @@ public class Task {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
-    private TaskStatus status;
+    private TaskStatus status = TaskStatus.NOT_DONE;
 
     @Column(name = "created_at", nullable = false)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
@@ -50,6 +49,7 @@ public class Task {
     public Task(String name, TaskStatus status, int hoursToComplete, Member member, Subject subject) {
         this.name = name;
         this.status = status;
+        this.member = member;
         this.createdAt = LocalDate.now();
         this.hoursToComplete = hoursToComplete;
         this.subject = subject;

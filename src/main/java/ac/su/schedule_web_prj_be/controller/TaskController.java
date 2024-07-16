@@ -87,12 +87,4 @@ public class TaskController {
         response.put("deleted", Boolean.TRUE);
         return ResponseEntity.ok(response);
     }
-
-    @PostMapping("/{subjectId}/tasks")
-    public ResponseEntity<Task> addTaskToSubject(@PathVariable("subjectId") Long subjectId, @RequestBody Task task) {
-        Subject subject = subjectService.getSubjectById(subjectId);
-        task.setSubject(subject);
-        Task newTask = taskService.createTask(task);
-        return ResponseEntity.status(HttpStatus.CREATED).body(newTask);
-    }
 }

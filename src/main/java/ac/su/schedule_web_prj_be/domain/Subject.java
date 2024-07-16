@@ -23,9 +23,11 @@ public class Subject {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "subject")
     private List<Statistic> statistics;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "subject")
     private List<Task> tasks;
 

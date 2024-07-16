@@ -2,13 +2,17 @@ package ac.su.schedule_web_prj_be.service;
 
 import ac.su.schedule_web_prj_be.domain.Member;
 import ac.su.schedule_web_prj_be.domain.Subject;
+import ac.su.schedule_web_prj_be.domain.Task;
 import ac.su.schedule_web_prj_be.repository.MemberRepository;
 import ac.su.schedule_web_prj_be.repository.SubjectRepository;
+import ac.su.schedule_web_prj_be.repository.TaskRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,6 +23,7 @@ public class SubjectService {
     private final MemberService memberService;
     private final SubjectRepository subjectRepository;
     private final MemberRepository memberRepository;
+    private final TaskRepository taskRepository;
 
     // 모든 과목 조회
     public List<Subject> getAllSubject() {
@@ -46,10 +51,24 @@ public class SubjectService {
     // 과목 삭제
     @Transactional
     public void deleteSubject(Long subjectId) {
-        if (!subjectRepository.existsById(subjectId)) {
-            throw new IllegalArgumentException("유효하지 않는 subjectId");
-        }
         subjectRepository.deleteById(subjectId);
+    }
+
+    // Subject에 Task추가
+    public Task addTaskToSubject(Long subjectId, Task task) {
+        Subject subject = subjectRepository.findById(subjectId)
+                .orElseThrow(() -> new IllegalArgumentException("Subject가 없음"));
+        task.setSubject(subject);
+        task.setCreatedAt(LocalDate.now());
+
+        return taskRepository.save(task);
+    }
+    // Subject에 속한 모든 Task 조회
+    public List<Task> getTasksBySubjectId(Long subjectId) {
+        Subject subject = subjectRepository.findById(subjectId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 ID의 과목이 없음"));
+
+        return taskRepository.getTasksBySubject(subject);
     }
 
     // 유저 id로 과목 조회

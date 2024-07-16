@@ -125,4 +125,3 @@ CREATE TABLE `task`
 ALTER TABLE `task`
     ADD CONSTRAINT `task_PK` PRIMARY KEY ( `id` );
 
-

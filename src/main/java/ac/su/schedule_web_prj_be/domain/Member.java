@@ -1,5 +1,6 @@
 package ac.su.schedule_web_prj_be.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -45,14 +46,18 @@ public class Member {
     private String level;
 
     @OneToMany(mappedBy = "member")
+    @JsonIgnore
     private List<GroupChat> groupChats;
 
     @OneToMany(mappedBy = "member")
+    @JsonIgnore
     private List<Task> tasks;
 
     @OneToMany(mappedBy = "member")
+    @JsonIgnore
     private List<Statistic> statistics;
 
     @OneToMany(mappedBy = "member")
+    @JsonIgnore
     private List<Subject> subjects;
 }

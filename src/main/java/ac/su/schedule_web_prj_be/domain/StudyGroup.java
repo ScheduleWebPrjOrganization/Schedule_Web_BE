@@ -1,5 +1,6 @@
 package ac.su.schedule_web_prj_be.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,12 +25,14 @@ public class StudyGroup {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name ="created_at", nullable = false)
+    @Column(name = "created_at", nullable = false)
     private Date createdAt;
 
     @OneToMany(mappedBy = "studyGroup")
+    @JsonManagedReference
     private List<Member> members;
 
     @OneToMany(mappedBy = "studyGroup")
+    @JsonManagedReference
     private List<GroupChat> groupChats;
 }

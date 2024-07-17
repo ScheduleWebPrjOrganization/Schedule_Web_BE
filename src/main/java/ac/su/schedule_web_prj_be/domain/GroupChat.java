@@ -1,5 +1,6 @@
 package ac.su.schedule_web_prj_be.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,9 +23,11 @@ public class GroupChat {
 
     @ManyToOne
     @JoinColumn(name = "member_id", nullable = false)
+    @JsonBackReference
     private Member member;
 
     @ManyToOne
     @JoinColumn(name = "group_id", nullable = false)
+    @JsonBackReference
     private StudyGroup studyGroup;
 }

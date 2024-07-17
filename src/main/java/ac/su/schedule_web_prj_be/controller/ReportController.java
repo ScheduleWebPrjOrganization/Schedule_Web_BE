@@ -19,7 +19,7 @@ public class ReportController {
     private final ReportService reportService;
 
     // Report Entity 에 대한 Post 요청 - Create Report
-    @PostMapping
+    @PostMapping("/post")
     public ResponseEntity<Report> createReport(@RequestBody Report report) {
         Report createdReport = reportService.createReport(report);
         return ResponseEntity.ok(createdReport);
@@ -39,7 +39,7 @@ public class ReportController {
         return ResponseEntity.ok(reports);
     }
 
-    // 그룹 채팅 ID(스터디 그룹의 FK를 받은 그룹 채팅의 PK인 챗 ID의 FK...) 에 대한 Get 요청 - Get Reports By GroupChatId
+    // 그룹 채팅 ID에 대한 Get 요청 - Get Reports By GroupChatId
     @GetMapping("/groupChat/{groupChatId}")
     public ResponseEntity<List<Report>> getReportsByGroupChatId(@PathVariable Long groupChatId) {
         List<Report> reports = reportService.getReportsByGroupChatId(groupChatId);
@@ -82,7 +82,7 @@ public class ReportController {
     }
 
     // 신고 ID 상태 변경를 위한 Put 요청 - Update Report Status
-    @PutMapping("/{id}/status")
+    @PutMapping("/put/{id}/status")
     public ResponseEntity<Report> updateReportStatus(@PathVariable Long id, @RequestParam ReportStatus status) {
         Report updatedReport = reportService.updateReportStatus(id, status);
         if (updatedReport != null) {

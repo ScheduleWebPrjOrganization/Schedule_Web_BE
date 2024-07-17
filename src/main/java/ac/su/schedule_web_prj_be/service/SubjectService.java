@@ -38,12 +38,13 @@ public class SubjectService {
 
 
     // 과목 추가
-    public Subject addSubject(Long memberId, String subjectName) {
+    public Subject addSubject(Long memberId, String subjectName, String dateKey) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new IllegalArgumentException("유효하지 않은 memberId"));
         Subject subject = new Subject();
         subject.setName(subjectName);
         subject.setMember(member);
+        subject.setDateKey(dateKey);
 
         return subjectRepository.save(subject);
     }
@@ -59,7 +60,7 @@ public class SubjectService {
         Subject subject = subjectRepository.findById(subjectId)
                 .orElseThrow(() -> new IllegalArgumentException("Subject가 없음"));
         task.setSubject(subject);
-        task.setCreatedAt(LocalDate.now());
+        task.setMember(subject.getMember());
 
         return taskRepository.save(task);
     }

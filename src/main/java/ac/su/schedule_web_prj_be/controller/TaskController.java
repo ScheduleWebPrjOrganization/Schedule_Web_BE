@@ -46,29 +46,22 @@ public class TaskController {
         return ResponseEntity.ok(task);
     }
 
-    @GetMapping("/member/{memberId}/date/{date}")
-    public ResponseEntity<List<Task>> getTasksByMemberAndDate(@PathVariable Long memberId, @PathVariable String date) {
-        // 더미 데이터를 사용하여 Member 객체를 가져오는 부분을 대체
-        // Member member = memberService.getMemberById(memberId);
-
-        LocalDate localDate = LocalDate.parse(date);
-
-        // 더미 데이터 생성, 수정해야함.
-        List<Task> dummyTasks = new ArrayList<>();
-        dummyTasks.add(new Task("Task 1", TaskStatus.DONE, 2, null, null));
-        dummyTasks.add(new Task("Task 2", TaskStatus.IN_PROGRESS, 3, null, null));
-        dummyTasks.add(new Task("Task 3", TaskStatus.NOT_DONE, 1, null, null));
-
-        // 필터링된 Task 리스트 생성
-        List<Task> tasks = new ArrayList<>();
-        for (Task task : dummyTasks) {
-            if (task.getCreatedAt().equals(localDate)) {
-                tasks.add(task);
-            }
-        }
-        return ResponseEntity.ok(tasks);
-    }
-    //    @PostMapping("/user/{memberId}/date/{date}")
+    //    @GetMapping("/member/{memberId}/date/{date}")
+//    public ResponseEntity<List<Task>> getTasksByMemberAndDate(@PathVariable Long memberId, @PathVariable String date) {
+//        // 더미 데이터를 사용하여 Member 객체를 가져오는 부분을 대체
+//        // Member member = memberService.getMemberById(memberId);
+//
+//        LocalDate localDate = LocalDate.parse(date);
+//
+//        // 더미 데이터 생성, 수정해야함.
+//        List<Task> dummyTasks = new ArrayList<>();
+//        dummyTasks.add(new Task("Task 1", TaskStatus.DONE, 2, null, null, "2024-07-04"));
+//        dummyTasks.add(new Task("Task 2", TaskStatus.IN_PROGRESS, 3, null, null,"2024-07-05"));
+//        dummyTasks.add(new Task("Task 3", TaskStatus.NOT_DONE, 1, null, null,"2024-07-06"));
+//
+//        return ResponseEntity.ok(dummyTasks);
+//    }
+//    //    @PostMapping("/user/{memberId}/date/{date}")
 //    public ResponseEntity<Task> createTask(@PathVariable String memberId, @PathVariable String date, @RequestBody Task task) {
 //        task.setCreatedAt(LocalDate.parse(date)); // 날짜 설정
 //        Task createdTask = taskService.createTask(task, memberId);
@@ -86,5 +79,18 @@ public class TaskController {
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/{taskId}/subject")
+    public ResponseEntity<Subject> getSubjectofTask(@PathVariable("taskId") Long taskId) {
+        Task task = taskService.getTaskById(taskId);
+        Subject subject = task.getSubject();
+        return ResponseEntity.ok(subject);
+    }
+
+    @GetMapping("/tasks/date/{date}")
+    public ResponseEntity<List<Task>> getTasksByDate(@PathVariable("date") String dateKey) {
+        List<Task> tasks = taskService.getTasksByDate(dateKey);
+        return ResponseEntity.ok(tasks);
     }
 }

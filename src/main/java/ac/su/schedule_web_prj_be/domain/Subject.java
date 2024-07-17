@@ -23,6 +23,9 @@ public class Subject {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @Column(name = "dateKey", nullable = false)
+    private String dateKey;
+
     @JsonIgnore
     @OneToMany(mappedBy = "subject")
     private List<Statistic> statistics;
@@ -33,4 +36,13 @@ public class Subject {
 
     @OneToMany(mappedBy = "subject")
     private List<SubjectRecord> subjectRecords;
+
+    public Subject() {}
+
+    public Subject(String name, String dateKey, Member member) {
+        this.name = name;
+        this.dateKey = dateKey;
+        this.member = member;
+    }
+
 }

@@ -35,13 +35,13 @@ public class TaskService {
         return taskRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Task not found with id " + id));    }
 
 
-    public List<Task> getTasksByMemberAndDate(Member member, LocalDate date) {
-        return taskRepository.findTasksByMemberAndDate(member, date);
-    }
-
-    public void deleteTasksByMemberAndDate(String memberId, LocalDate date) {
-        taskRepository.deleteTasksByMemberAndDate(memberId, date);
-    }
+//    public List<Task> getTasksByMemberAndDate(Member member, LocalDate date) {
+//        return taskRepository.findTasksByMemberAndDate(member, date);
+//    }
+//
+//    public void deleteTasksByMemberAndDate(String memberId, LocalDate date) {
+//        taskRepository.deleteTasksByMemberAndDate(memberId, date);
+//    }
 
     @Transactional
     public void deleteTasksBySubjectId(Long subjectId) {
@@ -66,5 +66,10 @@ public class TaskService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 ID의 과목이 없음"));
 
         return taskRepository.getTasksBySubject(subject);
+    }
+
+    // 특정 날짜에 해당하는 모든 과제 가져오기
+    public List<Task> getTasksByDate(String dateKey) {
+        return taskRepository.findByDateKey(dateKey);
     }
 }

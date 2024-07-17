@@ -41,8 +41,10 @@ public class SubjectController {
 
     // 과목 추가
     @PostMapping("/members/{memberId}")
-    public ResponseEntity<Subject> addSubject(@PathVariable("memberId") Long memberId, @RequestBody Subject subject) {
-        Subject newSubject = subjectService.addSubject(memberId, subject.getName());
+    public ResponseEntity<Subject> addSubject(@PathVariable("memberId") Long memberId,
+                                              @RequestParam("subjectName") String subjectName,
+                                              @RequestParam("dateKey") String dateKey) {
+        Subject newSubject = subjectService.addSubject(memberId, subjectName, dateKey);
         return ResponseEntity.status(HttpStatus.CREATED).body(newSubject);
     }
 
@@ -73,9 +75,6 @@ public class SubjectController {
     // Subject에 Task 추가
     @PostMapping("/{subjectId}/tasks")
     public ResponseEntity<Task> addTaskToSubject(@PathVariable("subjectId") Long subjectId, @RequestBody Task task) {
-        System.out.println("Subject에 Task 추가 : " + subjectId);
-        System.out.println("Task이름 : " + task.toString());
-
         Subject subject = subjectService.getSubjectById(subjectId);
         task.setSubject(subject); // Task에 Subject 설정
         task.setMember(subject.getMember());

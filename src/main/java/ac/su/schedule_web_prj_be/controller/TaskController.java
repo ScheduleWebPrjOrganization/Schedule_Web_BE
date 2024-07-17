@@ -88,7 +88,7 @@ public class TaskController {
         return ResponseEntity.ok(subject);
     }
 
-    @GetMapping("/tasks/date/{date}")
+    @GetMapping("/date/{date}")
     public ResponseEntity<List<Task>> getTasksByDate(@PathVariable("date") String dateKey) {
         List<Task> tasks = taskService.getTasksByDate(dateKey);
         return ResponseEntity.ok(tasks);

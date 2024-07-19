@@ -1,5 +1,6 @@
 package ac.su.schedule_web_prj_be.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -7,15 +8,12 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
-// PR 중 수정하기 - PR 요청한 브랜치가 수정됩니다.
 @Entity
 @Getter @Setter
 @Table(name = "member")
 public class Member {
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -28,6 +26,7 @@ public class Member {
     @Column(name = "email", nullable = false)
     private String email;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
@@ -43,6 +42,9 @@ public class Member {
 
     @Column(name = "level", nullable = false)
     private String level;
+
+    @Column(name = "online", nullable = false)
+    private boolean online;
 
     @OneToMany(mappedBy = "member")
     private List<GroupChat> groupChats;

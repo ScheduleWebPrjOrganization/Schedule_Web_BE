@@ -1,11 +1,12 @@
 package ac.su.schedule_web_prj_be.controller;
 
-
 import ac.su.schedule_web_prj_be.domain.StudyGroup;
 import ac.su.schedule_web_prj_be.service.StudyGroupService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -20,7 +21,7 @@ public class StudyGroupController {
     }
 
     @GetMapping("/id/{id}")
-    public StudyGroup getStudyGroup(@PathVariable Long id) {
+    public StudyGroup getStudyGroupById(@PathVariable Long id) {
         if (id == null) {
             return null;
         }
@@ -28,7 +29,7 @@ public class StudyGroupController {
     }
 
     @GetMapping("/name/{name}")
-    public StudyGroup getStudyGroup(@PathVariable String name) {
+    public StudyGroup getStudyGroupByName(@PathVariable String name) {
         if (name == null) {
             return null;
         }
@@ -37,15 +38,11 @@ public class StudyGroupController {
 
     @PostMapping()
     public String createStudyGroup(@RequestParam String name,
-                                 @RequestParam String description,
-                                 @RequestParam int memberCount) {
-
-        StudyGroup studyGroup = studyGroupService.buildStudyGroup
-                (name, description, memberCount);
+                                   @RequestParam String description,
+                                   @RequestParam int memberCount) {
+        StudyGroup studyGroup = studyGroupService.buildStudyGroup(name, description, memberCount);
         return "success";
     }
-
-    public List<StudyGroup> findStudyGroupByFilter() {
-        return studyGroupService.FindAllStudyGroup();
-    }
 }
+
+

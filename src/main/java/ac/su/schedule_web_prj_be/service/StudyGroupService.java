@@ -6,7 +6,7 @@ import ac.su.schedule_web_prj_be.repository.StudyGroupRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -14,20 +14,20 @@ import java.util.List;
 public class StudyGroupService {
     private final StudyGroupRepository studyGroupRepository;
 
-    public StudyGroup buildStudyGroup(String name, String description, List<Member> members, int memberCount) {
-        StudyGroup studyGroup = new StudyGroup();
-        studyGroup.setCreatedAt(new Date());
-        studyGroup.setDescription(description);
-        studyGroup.setName(name);
-        studyGroup.setMembers(members);
-        studyGroup.setMemberCount(memberCount);
-
-        return studyGroupRepository.save(studyGroup);
-    }
+//    public StudyGroup buildStudyGroup(String name, String description, List<Member> members, int memberCount) {
+//        StudyGroup studyGroup = new StudyGroup();
+//        studyGroup.setCreatedAt(LocalDateTime.now());
+//        studyGroup.setDescription(description);
+//        studyGroup.setName(name);
+//        studyGroup.setMembers(members);
+//        studyGroup.setMemberCount(memberCount);
+//
+//        return studyGroupRepository.save(studyGroup);
+//    }
 
     public StudyGroup buildStudyGroup(String name, String description, int memberCount) {
         StudyGroup studyGroup = new StudyGroup();
-        studyGroup.setCreatedAt(new Date());
+        studyGroup.setCreatedAt(LocalDateTime.now());
         studyGroup.setDescription(description);
         studyGroup.setName(name);
         studyGroup.setMemberCount(memberCount);
@@ -47,7 +47,6 @@ public class StudyGroupService {
         return studyGroupRepository.findAll();
     }
 
-
     public StudyGroup getStudyGroup(Long id) {
         try {
             return studyGroupRepository.findById(id).get();
@@ -63,5 +62,4 @@ public class StudyGroupService {
             return null;
         }
     }
-
 }

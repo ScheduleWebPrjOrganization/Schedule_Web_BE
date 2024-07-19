@@ -19,8 +19,8 @@ public class TimerController {
 
     // 타이머 시작
     @GetMapping("/start")
-    public ResponseEntity<Void> startTimer() {
-        timerService.startTimer();
+    public ResponseEntity<Void> startTimer(@RequestParam("subject_id") Long subjectId) {
+        timerService.startTimer(subjectId);
         return ResponseEntity.ok().build();
     }
 
@@ -39,9 +39,10 @@ public class TimerController {
     }
 
     // 타이머 정지 및 String 타입으로 시간:분:초 형식으로 http://localhost:8080/api/timer/stop 에 시간 출력
+    // 타이머 정지 및 프론트에서 subject_id 받아옴
     @GetMapping("/stop")
-    public ResponseEntity<String> stopTimer() {
-        String formattedTime = timerService.stopTimer();
+    public ResponseEntity<String> stopTimer(@RequestParam("subject_id") Long subjectId) {
+        String formattedTime = timerService.stopTimer(subjectId);
         return ResponseEntity.ok(formattedTime);
     }
 }

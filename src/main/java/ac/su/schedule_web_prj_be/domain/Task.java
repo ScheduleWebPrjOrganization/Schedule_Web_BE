@@ -23,10 +23,6 @@ public class Task {
     @Column(name = "status", nullable = false)
     private TaskStatus status = TaskStatus.NOT_DONE;
 
-    @JsonIgnore
-    @Column(name = "member_id", insertable = false, updatable = false)
-    private String memberId;
-
     @Column(name = "hours_to_complete", nullable = false)
     private int hoursToComplete;
 
@@ -34,7 +30,7 @@ public class Task {
     private String dateKey;
 
     @ManyToOne
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "member_id", nullable = false)  // member_id를 외래키로 설정
     private Member member;
 
     @ManyToOne

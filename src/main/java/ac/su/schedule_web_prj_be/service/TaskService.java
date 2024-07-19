@@ -68,8 +68,4 @@ public class TaskService {
         return taskRepository.getTasksBySubject(subject);
     }
 
-    // 특정 날짜에 해당하는 모든 과제 가져오기
-    public List<Task> getTasksByDate(String dateKey) {
-        return taskRepository.findByDateKey(dateKey);
-    }
 }

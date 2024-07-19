@@ -10,6 +10,9 @@ import ac.su.schedule_web_prj_be.service.TaskService;
 // import ac.su.schedule_web_prj_be.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jdbc.repository.query.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -80,17 +83,5 @@ public class TaskController {
         response.put("deleted", Boolean.TRUE);
         return ResponseEntity.ok(response);
     }
-
-    @GetMapping("/{taskId}/subject")
-    public ResponseEntity<Subject> getSubjectofTask(@PathVariable("taskId") Long taskId) {
-        Task task = taskService.getTaskById(taskId);
-        Subject subject = task.getSubject();
-        return ResponseEntity.ok(subject);
-    }
-
-    @GetMapping("/date/{date}")
-    public ResponseEntity<List<Task>> getTasksByDate(@PathVariable("date") String dateKey) {
-        List<Task> tasks = taskService.getTasksByDate(dateKey);
-        return ResponseEntity.ok(tasks);
-    }
 }
+

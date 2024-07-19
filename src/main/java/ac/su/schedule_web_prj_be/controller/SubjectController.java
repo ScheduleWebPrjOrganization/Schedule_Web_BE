@@ -41,15 +41,25 @@ public class SubjectController {
 
     // 과목 추가
     @PostMapping("/members/{memberId}")
-    public ResponseEntity<Subject> addSubject(@PathVariable("memberId") Long memberId, @RequestBody Subject subject) {
-        Subject newSubject = subjectService.addSubject(memberId, subject.getName());
+    public ResponseEntity<Subject> addSubject(@PathVariable("memberId") Long memberId,
+                                              @RequestParam("subjectName") String subjectName,
+                                              @RequestParam("dateKey") String dateKey) {
+        Subject newSubject = subjectService.addSubject(memberId, subjectName, dateKey);
         return ResponseEntity.status(HttpStatus.CREATED).body(newSubject);
     }
 
-    // 과목 삭제
+    // 과목 삭제 (관련 Task 모두 삭제 후 과목 삭제 함)
     @DeleteMapping("/{subjectId}")
     public ResponseEntity<Subject> deleteSubject(@PathVariable("subjectId") Long subjectId) {
+        taskService.deleteTasksBySubjectId(subjectId);
         subjectService.deleteSubject(subjectId);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    // 과제 삭제
+    @DeleteMapping("/tasks/{taskId}")
+    public ResponseEntity<Subject> deleteTask(@PathVariable("taskId") Long taskId) {
+        taskService.deleteTask(taskId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
@@ -65,12 +75,13 @@ public class SubjectController {
     // Subject에 Task 추가
     @PostMapping("/{subjectId}/tasks")
     public ResponseEntity<Task> addTaskToSubject(@PathVariable("subjectId") Long subjectId, @RequestBody Task task) {
-        // Subject Id로
         Subject subject = subjectService.getSubjectById(subjectId);
         task.setSubject(subject); // Task에 Subject 설정
+        task.setMember(subject.getMember());
         Task newTask = taskService.createTask(task); // Task 생성
         return ResponseEntity.status(HttpStatus.CREATED).body(newTask);
     }
+
     // Task가 속한 Subject 조회
     @GetMapping("/{taskId}/subject")
     public ResponseEntity<Subject> getSubjectOfTask(@PathVariable("taskId") Long taskId) {
@@ -79,11 +90,12 @@ public class SubjectController {
         return ResponseEntity.ok(subject);
     }
 
+    // Subject에 속한 모든 Task 조회
+    @GetMapping("/{subjectId}/tasks")
+    public ResponseEntity<List<Task>> getTasksBySubjectId(@PathVariable("subjectId") Long subjectId) {
+        List<Task> tasks = taskService.getTasksBySubjectId(subjectId);
+        return ResponseEntity.ok(tasks);
+    }
 
 
-//    GET /subjects : 모든 과목 조회
-//    GET /subjects/{id} : 과목 ID로 과목 조회
-//    POST /subjects/members/{memberId} : 과목 추가
-//    DELETE /subjects/{subjectId} : 과목 삭제
-//    GET /subjects/members/{memberId} : 유저 id로 과목 조회
 }

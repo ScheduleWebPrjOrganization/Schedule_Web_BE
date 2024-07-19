@@ -1,9 +1,13 @@
 package ac.su.schedule_web_prj_be.service;
 
+import ac.su.schedule_web_prj_be.domain.Subject;
 import ac.su.schedule_web_prj_be.domain.Task;
 import ac.su.schedule_web_prj_be.domain.Member;
 import ac.su.schedule_web_prj_be.domain.TaskStatus;
+import ac.su.schedule_web_prj_be.repository.MemberRepository;
+import ac.su.schedule_web_prj_be.repository.SubjectRepository;
 import ac.su.schedule_web_prj_be.repository.TaskRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +21,7 @@ import java.util.Optional;
 public class TaskService {
 
     private final TaskRepository taskRepository;
+    private final SubjectRepository subjectRepository;
 
     public Task createTask(Task task) {
         return taskRepository.save(task);
@@ -29,13 +34,6 @@ public class TaskService {
     public Task getTaskById(Long id) {
         return taskRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Task not found with id " + id));    }
 
-    public List<Task> getTasksByMemberAndDate(Member member, LocalDate date) {
-        return taskRepository.findTasksByMemberAndDate(member, date);
-    }
-
-    public void deleteTasksByMemberAndDate(String memberId, LocalDate date) {
-        taskRepository.deleteTasksByMemberAndDate(memberId, date);
-    }
 
     public Task updateTask(Long id, Task taskDetails) {
         Task task = getTaskById(id);
@@ -49,6 +47,7 @@ public class TaskService {
         Task task = getTaskById(id);
         taskRepository.delete(task);
     }
+
 
     // 계획 상태 변경
     public Task updateStatus(Long id, TaskStatus status) {

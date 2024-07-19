@@ -1,12 +1,12 @@
 package ac.su.schedule_web_prj_be.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @Getter @Setter
@@ -21,17 +21,17 @@ public class Task {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
-    private TaskStatus status;
+    private TaskStatus status = TaskStatus.NOT_DONE;
 
-    @Column(name = "created_at", nullable = false)
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private LocalDate createdAt;
-
+    @JsonIgnore
     @Column(name = "member_id", insertable = false, updatable = false)
     private String memberId;
 
     @Column(name = "hours_to_complete", nullable = false)
     private int hoursToComplete;
+
+    @Column(name = "dateKey", nullable = false)
+    private String dateKey;
 
     @ManyToOne
     @JoinColumn(name = "member_id")
@@ -41,15 +41,17 @@ public class Task {
     @JoinColumn(name = "subject_id")
     private Subject subject;
 
-    public Task() {
-        this.createdAt = LocalDate.now();
-    }
+    public Task() {}
 
-    public Task(String name, TaskStatus status, int hoursToComplete, Member member, Subject subject) {
+    public Task(String name, TaskStatus status, int hoursToComplete, String dateKey, Member member, Subject subject) {
         this.name = name;
         this.status = status;
-        this.createdAt = LocalDate.now();
+        this.member = member;
+        this.dateKey = dateKey;
         this.hoursToComplete = hoursToComplete;
         this.subject = subject;
+    }
+
+    public void setPriority(int i) {
     }
 }

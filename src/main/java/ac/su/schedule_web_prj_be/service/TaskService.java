@@ -32,7 +32,8 @@ public class TaskService {
     }
 
     public Task getTaskById(Long id) {
-        return taskRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Task not found with id " + id));    }
+        return taskRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Task not found with id " + id));
+    }
 
 
     public Task updateTask(Long id, Task taskDetails) {
@@ -70,4 +71,16 @@ public class TaskService {
             default -> ""; // 상태가 정의되지 않은 경우 빈 문자열
         };
     }
+
+    public void deleteTasksBySubjectId(Long subjectId) {
+    }
+
+    // Subject에 속한 모든 Task 조회
+    public List<Task> getTasksBySubjectId(Long subjectId) {
+        Subject subject = subjectRepository.findById(subjectId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 ID의 과목이 없음"));
+
+        return taskRepository.getTasksBySubject(subject);
+    }
+
 }

@@ -1,5 +1,6 @@
 package ac.su.schedule_web_prj_be.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
@@ -19,10 +20,18 @@ public class TimerService {
     private long pauseTime = 0;
     private long totalPausedTime = 0;
     private boolean isPaused = false;
+    private SubjectRecord record;
+    @Autowired
+    private SubjectRecordRepository subjectRecordRepository;
 
+    public TimerService() {
+        this.record = new SubjectRecord();
+    }
     // 타이머 시작
     public void startTimer() {
-        startTime = System.currentTimeMillis();
+        startTime = System.currentTimeMillis(); // UTC(GMT) 기준으로 시간이 저장됨
+        record.setRecordedAt(new Date(startTime));  // 시작을 누른 타이밍의 시간 기록
+//        subjectRecordRepository.save(record); // 변경된 상태 저장, stopped_at이 null을 허용하지 않으므로 주석처리
         totalPausedTime = 0;  // 새로 시작할 때 일시 정지 시간 초기화
         isPaused = false;
     }
@@ -31,6 +40,8 @@ public class TimerService {
     public void pauseTimer() {
         if (!isPaused) {
             pauseTime = System.currentTimeMillis();
+            record.setPausedAt(new Date(pauseTime));  // 일시 정지를 누른 타이밍의 시간 업데이트
+//            subjectRecordRepository.save(record); // 변경된 상태 저장, stopped_at이 null을 허용하지 않으므로 주석처리
             isPaused = true;
         } else {
             throw new IllegalStateException("타이머가 이미 일시정지 되어 있습니다.");
@@ -42,6 +53,8 @@ public class TimerService {
         if (isPaused) {
             long currentPauseDuration = System.currentTimeMillis() - pauseTime;
             totalPausedTime += currentPauseDuration;
+            record.setPausedDuration(totalPausedTime);  // 총 일시 정지 시간 업데이트
+//            subjectRecordRepository.save(record); // 변경된 상태 저장, stopped_at이 null을 허용하지 않으므로 주석처리
             isPaused = false;
         } else {
             throw new IllegalStateException("타이머가 일시정지 되어 있지 않습니다.");
@@ -58,6 +71,8 @@ public class TimerService {
         }
         long endTime = System.currentTimeMillis();
         long elapsedTime = endTime - startTime - totalPausedTime;
+        record.setStoppedAt(new Date(endTime));  // 정지를 누른 타이밍의 시간을 업데이트
+        subjectRecordRepository.save(record); // 지금까지 변경된 상태를 DB에 저장
         startTime = 0;  // 타이머 리셋
         return formatTime(elapsedTime);
     }

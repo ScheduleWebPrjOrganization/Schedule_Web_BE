@@ -38,7 +38,7 @@ public class TimerController {
         return ResponseEntity.ok().build();
     }
 
-    // 타이머 정지 및 String 타입으로 시간:분:초 형식으로 시간 출력
+    // 타이머 정지 및 String 타입으로 시간:분:초 형식으로 http://localhost:8080/api/timer/stop 에 시간 출력
     @GetMapping("/stop")
     public ResponseEntity<String> stopTimer() {
         String formattedTime = timerService.stopTimer();

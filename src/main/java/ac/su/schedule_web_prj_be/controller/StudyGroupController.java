@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/studygroup")
+@RequestMapping("/api/studygroup")
 public class StudyGroupController {
     private final StudyGroupService studyGroupService;
 

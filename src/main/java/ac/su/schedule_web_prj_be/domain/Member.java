@@ -45,7 +45,7 @@ public class Member {
     @Column(name = "level", nullable = false)
     private String level;
 
-    @Column(name = "online", nullable = false)
+    @Column(name = "online")
     private boolean online;
 
     @OneToMany(mappedBy = "member")

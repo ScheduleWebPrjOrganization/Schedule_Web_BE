@@ -5,6 +5,7 @@ import ac.su.schedule_web_prj_be.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.w3c.dom.stylesheets.LinkStyle;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -35,4 +36,5 @@ public class MemberService {
     public Optional<Member> findByEmail(String email) {
         return memberRepository.findByEmail(email);
     }
+
 }

@@ -48,28 +48,6 @@ public class TaskController {
         Task task = taskService.getTaskById(id);
         return ResponseEntity.ok(task);
     }
-
-    //    @GetMapping("/member/{memberId}/date/{date}")
-//    public ResponseEntity<List<Task>> getTasksByMemberAndDate(@PathVariable Long memberId, @PathVariable String date) {
-//        // 더미 데이터를 사용하여 Member 객체를 가져오는 부분을 대체
-//        // Member member = memberService.getMemberById(memberId);
-//
-//        LocalDate localDate = LocalDate.parse(date);
-//
-//        // 더미 데이터 생성, 수정해야함.
-//        List<Task> dummyTasks = new ArrayList<>();
-//        dummyTasks.add(new Task("Task 1", TaskStatus.DONE, 2, null, null, "2024-07-04"));
-//        dummyTasks.add(new Task("Task 2", TaskStatus.IN_PROGRESS, 3, null, null,"2024-07-05"));
-//        dummyTasks.add(new Task("Task 3", TaskStatus.NOT_DONE, 1, null, null,"2024-07-06"));
-//
-//        return ResponseEntity.ok(dummyTasks);
-//    }
-//    //    @PostMapping("/user/{memberId}/date/{date}")
-//    public ResponseEntity<Task> createTask(@PathVariable String memberId, @PathVariable String date, @RequestBody Task task) {
-//        task.setCreatedAt(LocalDate.parse(date)); // 날짜 설정
-//        Task createdTask = taskService.createTask(task, memberId);
-//        return ResponseEntity.status(201).body(createdTask);
-//    }
     @PutMapping("/{id}")
     public ResponseEntity<Task> updateTask(@PathVariable Long id, @RequestBody Task taskDetails) {
         Task updatedTask = taskService.updateTask(id, taskDetails);
@@ -82,6 +60,11 @@ public class TaskController {
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/members/{memberId}/date/{dateKey}")
+    public List<Task> getTasksByMemberIdAndDate(@PathVariable Long memberId, @PathVariable String dateKey) {
+        return taskService.getTasksByMemberIdAndDateKey(memberId, dateKey);
     }
 }
 

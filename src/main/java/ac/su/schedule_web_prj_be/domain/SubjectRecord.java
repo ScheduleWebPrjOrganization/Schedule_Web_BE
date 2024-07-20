@@ -27,7 +27,7 @@ public class SubjectRecord {
     private long pausedDuration = 0;
 
     @ManyToOne
-//    @JoinColumn(name = "subject_id", nullable = false)
-    @JoinColumn(name = "subject_id") // 타이머 시간만이 DB에 저장되는지 확인하기 위해 변경했습니다.
+    @JoinColumn(name = "subject_id", nullable = false)
+//    @JoinColumn(name = "subject_id") // 타이머 시간만이 DB에 저장되는지 확인하기 위해 변경했습니다.
     private Subject subject;
 }

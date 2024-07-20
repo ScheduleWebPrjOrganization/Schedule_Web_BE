@@ -1,5 +1,7 @@
 package ac.su.schedule_web_prj_be.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,8 +30,6 @@ public class StudyGroup {
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "studyGroup")
+    @JsonIgnore
     private List<Member> members;
-
-    @OneToMany(mappedBy = "studyGroup")
-    private List<GroupChat> groupChats;
 }

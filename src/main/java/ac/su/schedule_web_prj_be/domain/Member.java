@@ -1,6 +1,7 @@
 package ac.su.schedule_web_prj_be.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -11,7 +12,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-// PR 중 수정하기 - PR 요청한 브랜치가 수정됩니다.
 @Entity
 @Getter @Setter
 @Table(name = "member")

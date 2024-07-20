@@ -23,7 +23,7 @@ public class Subject {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "dateKey", nullable = false)
+    @Column(name = "date_key", nullable = false)
     private String dateKey;
 
     @JsonIgnore

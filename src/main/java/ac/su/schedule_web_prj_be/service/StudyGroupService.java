@@ -8,11 +8,16 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
 public class StudyGroupService {
     private final StudyGroupRepository studyGroupRepository;
+
+    public Optional<StudyGroup> getStudyGroupById(Long id) {
+        return studyGroupRepository.findById(id);
+    }
 
 //    public StudyGroup buildStudyGroup(String name, String description, List<Member> members, int memberCount) {
 //        StudyGroup studyGroup = new StudyGroup();
@@ -62,4 +67,8 @@ public class StudyGroupService {
             return null;
         }
     }
+//    public Optional<StudyGroup> getStudyGroupById(Long id) {
+//        return studyGroupRepository.findByIdWithMembersAndSubjects(id);
+//    }
+
 }

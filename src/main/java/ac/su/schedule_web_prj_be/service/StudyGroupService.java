@@ -20,7 +20,7 @@ public class StudyGroupService {
     private final MemberRepository memberRepository;
     private final SubjectRepository subjectRepository;
 
-    public Optional<StudyGroup> getStudyGroupById(Long id) {
+    public Optional<StudyGroup> findById(Long id) {
         return studyGroupRepository.findById(id);
     }
 

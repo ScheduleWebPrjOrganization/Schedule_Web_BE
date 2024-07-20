@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
@@ -22,12 +23,9 @@ public class StudyGroupController {
     }
 
     @GetMapping("/id/{id}")
-    public ResponseEntity<StudyGroup> getStudyGroupById(@PathVariable Long id) {
-        StudyGroup studyGroup = studyGroupService.getStudyGroupWithMembersAndSubjects(id);
-        if (studyGroup == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(studyGroup);
+    public StudyGroup getStudyGroupById(@PathVariable Long id) {
+        Optional<StudyGroup> studyGroup = studyGroupService.findById(id);
+        return studyGroup.orElse(null);
     }
 
     @GetMapping("/name/{name}")

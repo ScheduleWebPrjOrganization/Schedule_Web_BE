@@ -1,16 +1,19 @@
 package ac.su.schedule_web_prj_be.controller;
 
-
 import ac.su.schedule_web_prj_be.domain.StudyGroup;
 import ac.su.schedule_web_prj_be.service.StudyGroupService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/studygroup")
+@RequestMapping("/api/studygroup")
 public class StudyGroupController {
     private final StudyGroupService studyGroupService;
 
@@ -20,15 +23,13 @@ public class StudyGroupController {
     }
 
     @GetMapping("/id/{id}")
-    public StudyGroup getStudyGroup(@PathVariable Long id) {
-        if (id == null) {
-            return null;
-        }
-        return studyGroupService.getStudyGroup(id);
+    public StudyGroup getStudyGroupById(@PathVariable Long id) {
+        Optional<StudyGroup> studyGroup = studyGroupService.findById(id);
+        return studyGroup.orElse(null);
     }
 
     @GetMapping("/name/{name}")
-    public StudyGroup getStudyGroup(@PathVariable String name) {
+    public StudyGroup getStudyGroupByName(@PathVariable String name) {
         if (name == null) {
             return null;
         }
@@ -39,13 +40,9 @@ public class StudyGroupController {
     public String createStudyGroup(@RequestParam String name,
                                    @RequestParam String description,
                                    @RequestParam int memberCount) {
-
-        StudyGroup studyGroup = studyGroupService.buildStudyGroup
-                (name, description, memberCount);
+        StudyGroup studyGroup = studyGroupService.buildStudyGroup(name, description, memberCount);
         return "success";
     }
-
-    public List<StudyGroup> findStudyGroupByFilter() {
-        return studyGroupService.FindAllStudyGroup();
-    }
 }
+
+

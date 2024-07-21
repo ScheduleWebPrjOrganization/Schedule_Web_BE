@@ -26,7 +26,7 @@ public class Task {
     @Column(name = "hours_to_complete", nullable = false)
     private int hoursToComplete;
 
-    @Column(name = "dateKey", nullable = false)
+    @Column(name = "date_key", nullable = false)
     private String dateKey;
 
     @ManyToOne

@@ -26,14 +26,7 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 
     // 과목에 속한 과제 삭제
     void deleteBySubjectId(Long subjectId);
-//
-//    @Query("DELETE FROM Task t WHERE t.member.id = :memberId AND t.createdAt = :date")
-//    void deleteTasksByMemberAndDate(@Param("memberId") String memberId, @Param("date") LocalDate date);
-//
-//    // 특정 유저의 특정 과목에 대한 작업 조회
-//    List<Task> findByMemberIdAndSubjectId(String memberId, Long subjectId);
-//
-//    @Query("SELECT t FROM Task t WHERE t.member = :member AND DATE(t.createdAt) = :date")
-//    List<Task> findTasksByMemberAndDate(@Param("member") Member member, @Param("date") LocalDate date);
+
+    List<Task> findByMemberIdAndDateKey(Long subjectId, String dateKey);
 
 }

@@ -32,7 +32,7 @@ public class SubjectController {
         return ResponseEntity.ok(subjects);
     }
 
-    // 맴버 id로 과목 조회
+    // 과목 id로 과목 조회
     @GetMapping("/{id}")
     public ResponseEntity<Subject> getSubject(@PathVariable Long id) {
         Subject subject = subjectService.getSubjectById(id);

@@ -34,7 +34,7 @@ public class MemberController {
 
         Member member = optionalMember.get();
 
-        if (!passwordEncoder.matches(request.getPassword(), member.getPwd())) {
+        if (!passwordEncoder.matches(request.getPwd(), member.getPwd())) {
             return ResponseEntity.badRequest().body("비밀번호 불일치");
         }
 
@@ -44,6 +44,12 @@ public class MemberController {
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody RegisterRequestDTO request) {
         Optional<Member> existingMemberById = memberService.findName(request.getName());
+
+        // name 필드가 null 이거나 비어있는 경우 오류 메시지 반환
+        if (request.getName() == null || request.getName().isEmpty()) {
+            return ResponseEntity.badRequest().body("아이디를 입력하세요");
+        }
+
         if (existingMemberById.isPresent()) {
             return ResponseEntity.badRequest().body("아이디가 이미 존재합니다");
         }

@@ -6,6 +6,7 @@ import ac.su.schedule_web_prj_be.domain.Task;
 import ac.su.schedule_web_prj_be.service.MemberService;
 import ac.su.schedule_web_prj_be.service.SubjectService;
 import ac.su.schedule_web_prj_be.service.TaskService;
+import ac.su.schedule_web_prj_be.service.TimerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,11 +20,13 @@ public class SubjectController {
     private final SubjectService subjectService;
     private final TaskService taskService;
     private final MemberService memberService;
+    private final TimerService subjectRecordService;
 
-    public SubjectController(SubjectService subjectService, TaskService taskService, MemberService memberService) {
+    public SubjectController(SubjectService subjectService, TaskService taskService, MemberService memberService, TimerService subjectRecordService) {
         this.subjectService = subjectService;
         this.taskService = taskService;
         this.memberService = memberService;
+        this.subjectRecordService = subjectRecordService;
     }
     // 모든 과목 조회
     @GetMapping
@@ -51,6 +54,7 @@ public class SubjectController {
     // 과목 삭제 (관련 Task 모두 삭제 후 과목 삭제 함)
     @DeleteMapping("/{subjectId}")
     public ResponseEntity<Subject> deleteSubject(@PathVariable("subjectId") Long subjectId) {
+        subjectRecordService.deleteRecordBySubjectId(subjectId);
         taskService.deleteTasksBySubjectId(subjectId);
         subjectService.deleteSubject(subjectId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

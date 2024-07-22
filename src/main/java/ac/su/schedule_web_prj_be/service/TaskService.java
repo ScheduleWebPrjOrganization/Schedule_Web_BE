@@ -48,6 +48,10 @@ public class TaskService {
         taskRepository.delete(task);
     }
 
+    public void deleteTasksByName(String taskName) {
+        List<Task> tasks = taskRepository.findByName(taskName);
+        taskRepository.deleteAll(tasks);
+    }
 
     // 계획 상태 변경
     public Task updateStatus(Long id, TaskStatus status) {

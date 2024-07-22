@@ -1,5 +1,6 @@
 package ac.su.schedule_web_prj_be.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,6 +28,7 @@ public class SubjectRecord {
     private long pausedDuration = 0;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "subject_id", nullable = false)
 //    @JoinColumn(name = "subject_id") // 타이머 시간만이 DB에 저장되는지 확인하기 위해 변경했습니다.
     private Subject subject;

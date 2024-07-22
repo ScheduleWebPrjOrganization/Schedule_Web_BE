@@ -1,5 +1,6 @@
 package ac.su.schedule_web_prj_be.service;
 
+import ac.su.schedule_web_prj_be.domain.Task;
 import ac.su.schedule_web_prj_be.exception.ResourceNotFoundException;
 import ac.su.schedule_web_prj_be.repository.SubjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,6 +97,11 @@ public class TimerService {
         long hours = (millis / (1000 * 60 * 60)) % 24;
 
         return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+    }
+
+    public void deleteRecordBySubjectId(Long subjectId) {
+        List<SubjectRecord> records = subjectRecordRepository.findBySubjectId(subjectId);
+        subjectRecordRepository.deleteAll(records);
     }
 }
 //@Service

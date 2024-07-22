@@ -66,5 +66,13 @@ public class TaskController {
     public List<Task> getTasksByMemberIdAndDate(@PathVariable Long memberId, @PathVariable String dateKey) {
         return taskService.getTasksByMemberIdAndDateKey(memberId, dateKey);
     }
+
+    @DeleteMapping("/name/{taskName}")
+    public ResponseEntity<Map<String, Boolean>> deleteTaskByName(@PathVariable String taskName) {
+        taskService.deleteTasksByName(taskName);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("deleted", Boolean.TRUE);
+        return ResponseEntity.ok(response);
+    }
 }
 

@@ -1,5 +1,6 @@
 package ac.su.schedule_web_prj_be.domain;
 
+import ac.su.schedule_web_prj_be.constant.UserTypeEnum;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
@@ -59,4 +60,15 @@ public class Member {
 
     @OneToMany(mappedBy = "member")
     private List<Subject> subjects;
+
+
+    @PrePersist
+    protected void onCreate() {
+        if (this.createdAt == null) {
+            this.createdAt = LocalDateTime.now();
+        }
+        if (this.userType == null) {
+            this.userType = String.valueOf(UserTypeEnum.User);
+        }
+    }
 }

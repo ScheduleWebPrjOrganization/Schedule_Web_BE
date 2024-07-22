@@ -29,4 +29,5 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 
     List<Task> findByMemberIdAndDateKey(Long subjectId, String dateKey);
 
+    List<Task> findByName(String taskName);
 }

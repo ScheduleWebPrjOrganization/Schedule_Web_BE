@@ -4,6 +4,8 @@ import ac.su.schedule_web_prj_be.domain.Member;
 import ac.su.schedule_web_prj_be.domain.Subject;
 import ac.su.schedule_web_prj_be.domain.Task;
 import ac.su.schedule_web_prj_be.domain.TaskStatus;
+import ac.su.schedule_web_prj_be.dto.TaskStatisticsDTO;
+import ac.su.schedule_web_prj_be.dto.TaskStatisticsRequestDTO;
 import ac.su.schedule_web_prj_be.service.MemberService;
 import ac.su.schedule_web_prj_be.service.SubjectService;
 import ac.su.schedule_web_prj_be.service.TaskService;
@@ -74,5 +76,16 @@ public class TaskController {
         response.put("deleted", Boolean.TRUE);
         return ResponseEntity.ok(response);
     }
+
+
+    @PostMapping("/statistics")
+    public ResponseEntity<List<TaskStatisticsDTO>> getTaskStatistics(
+            @RequestBody TaskStatisticsRequestDTO request) {
+        // 새로 추가된 엔드포인트: 통계 요청을 처리합니다.
+        List<TaskStatisticsDTO> statistics = taskService.getTaskStatistics(
+                request.getMemberId(), request.getStartDate(), request.getEndDate());
+        return ResponseEntity.ok(statistics);
+    }
+
 }
 

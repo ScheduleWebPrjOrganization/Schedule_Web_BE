@@ -26,7 +26,11 @@ public class Task {
     @Column(name = "hours_to_complete", nullable = false)
     private int hoursToComplete;
 
-    @Column(name = "date_key", nullable = false)
+
+    @Column(name = "actual_hours", nullable = true)
+    private int actualHours = 0;
+
+    @Column(name = "dateKey", nullable = false)
     private String dateKey;
 
     @ManyToOne
@@ -45,6 +49,7 @@ public class Task {
         this.member = member;
         this.dateKey = dateKey;
         this.hoursToComplete = hoursToComplete;
+        this.actualHours = 0; // 기본값 설정
         this.subject = subject;
     }
 

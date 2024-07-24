@@ -4,6 +4,7 @@ import ac.su.schedule_web_prj_be.domain.Subject;
 import ac.su.schedule_web_prj_be.domain.Task;
 import ac.su.schedule_web_prj_be.domain.Member;
 import ac.su.schedule_web_prj_be.domain.TaskStatus;
+import ac.su.schedule_web_prj_be.dto.TaskStatisticsDTO;
 import ac.su.schedule_web_prj_be.repository.MemberRepository;
 import ac.su.schedule_web_prj_be.repository.SubjectRepository;
 import ac.su.schedule_web_prj_be.repository.TaskRepository;
@@ -12,9 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -86,5 +85,21 @@ public class TaskService {
 
     public List<Task> getTasksByMemberIdAndDateKey(Long memberId, String dateKey) {
         return taskRepository.findByMemberIdAndDateKey(memberId, dateKey);
+    }
+
+    public List<TaskStatisticsDTO> getTaskStatistics(Long memberId, String startDate, String endDate) {
+        List<Task> tasks = taskRepository.findByMemberIdAndDateKeyBetween(memberId, startDate, endDate);
+        Map<String, Integer> statisticsMap = new HashMap<>();
+        for (Task task : tasks) {
+            String subjectName = task.getSubject().getName();
+            int actualHours = task.getActualHours();
+            statisticsMap.put(subjectName, statisticsMap.getOrDefault(subjectName, 0) + actualHours);
+        }
+
+        List<TaskStatisticsDTO> statisticsList = new ArrayList<>();
+        for (Map.Entry<String, Integer> entry : statisticsMap.entrySet()) {
+            statisticsList.add(new TaskStatisticsDTO(entry.getKey(), entry.getValue()));
+        }
+        return statisticsList;
     }
 }

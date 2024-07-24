@@ -1,10 +1,11 @@
 package ac.su.schedule_web_prj_be.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -25,11 +26,9 @@ public class StudyGroup {
     private String name;
 
     @Column(name ="created_at", nullable = false)
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "studyGroup")
+    @JsonManagedReference
     private List<Member> members;
-
-    @OneToMany(mappedBy = "studyGroup")
-    private List<GroupChat> groupChats;
 }

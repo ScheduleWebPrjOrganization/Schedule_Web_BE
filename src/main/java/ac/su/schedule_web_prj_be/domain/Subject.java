@@ -1,5 +1,6 @@
 package ac.su.schedule_web_prj_be.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -15,26 +16,27 @@ public class Subject {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "member_id")
+    @JsonBackReference
     private Member member;
 
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "dateKey", nullable = false)
+    @Column(name = "date_key", nullable = false)
     private String dateKey;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "subject")
+    @JsonIgnore
     private List<Statistic> statistics;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "subject")
+    @JsonIgnore
     private List<Task> tasks;
 
     @OneToMany(mappedBy = "subject")
+    @JsonIgnore
     private List<SubjectRecord> subjectRecords;
 
     public Subject() {}
@@ -44,5 +46,4 @@ public class Subject {
         this.dateKey = dateKey;
         this.member = member;
     }
-
 }

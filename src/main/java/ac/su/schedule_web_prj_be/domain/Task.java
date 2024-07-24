@@ -26,6 +26,7 @@ public class Task {
     @Column(name = "hours_to_complete", nullable = false)
     private int hoursToComplete;
 
+
     @Column(name = "actual_hours", nullable = true)
     private int actualHours = 0;
 

@@ -14,6 +14,9 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     Optional<Member> findByName(String name);
 
+    // 그룹아이디로 찾기
+    List<Member> findByStudyGroupId(Long studyGroupId);
+
     // 유저타입으로 검색 (관리자인지 아닌지)
     List<Member> findByUserType(String userType);
 

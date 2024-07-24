@@ -12,7 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MemberGroupAddController {
 
-    private MemberService memberService;
+    private final MemberService memberService;
 
     @GetMapping("/members")
     public List<Member> getAllMembers() {

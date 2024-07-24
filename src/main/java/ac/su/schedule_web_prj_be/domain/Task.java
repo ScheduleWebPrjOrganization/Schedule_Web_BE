@@ -35,10 +35,12 @@ public class Task {
 
     @ManyToOne
     @JoinColumn(name = "member_id", nullable = false)  // member_id를 외래키로 설정
+    @JsonIgnore
     private Member member;
 
     @ManyToOne
     @JoinColumn(name = "subject_id")
+    @JsonIgnore
     private Subject subject;
 
     public Task() {}

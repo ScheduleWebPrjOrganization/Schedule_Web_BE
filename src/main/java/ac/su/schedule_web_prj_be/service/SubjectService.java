@@ -74,9 +74,9 @@ public class SubjectService {
 
     // 유저 id로 과목 조회
     // 07-16 wildmantle: subject 도메인에 memeberId 가없어서 member 객체로 검색해야할껄?
+    // -> memberDTO 로 검색
     public List<Subject> getSubjectsByMemberId(Member member) {
 
         return subjectRepository.findByMember(member);
     }
-
 }

@@ -3,6 +3,7 @@ package ac.su.schedule_web_prj_be.domain;
 import ac.su.schedule_web_prj_be.constant.UserTypeEnum;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -50,12 +51,15 @@ public class Member {
     private boolean online;
 
     @OneToMany(mappedBy = "member")
+    @JsonIgnore
     private List<GroupChat> groupChats;
 
     @OneToMany(mappedBy = "member")
+    @JsonIgnore
     private List<Task> tasks;
 
     @OneToMany(mappedBy = "member")
+    @JsonIgnore
     private List<Statistic> statistics;
 
     @OneToMany(mappedBy = "member")

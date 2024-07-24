@@ -48,6 +48,7 @@ public class Task {
         this.member = member;
         this.dateKey = dateKey;
         this.hoursToComplete = hoursToComplete;
+        this.actualHours = 0; // 기본값 설정
         this.subject = subject;
     }
 

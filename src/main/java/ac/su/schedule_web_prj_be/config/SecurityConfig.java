@@ -17,20 +17,10 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorizeHttpRequests ->
                         authorizeHttpRequests
-                                .requestMatchers("/member/mypage").authenticated()  // 인증 필요
+                                .requestMatchers("/member/mypage").permitAll()  // 인증 필요
                                 .requestMatchers("/member/login", "/member/register").permitAll()  // 로그인, 회원가입 페이지 허용
+                                .requestMatchers("/**").permitAll()
                                 .anyRequest().permitAll()
-                )
-                .formLogin(formLogin ->
-                        formLogin
-                                .loginPage("/members/login")
-                                .defaultSuccessUrl("/")
-                )
-                .logout(logout ->
-                        logout
-                                .logoutRequestMatcher(new AntPathRequestMatcher("/members/logout"))
-                                .logoutSuccessUrl("/")
-                                .invalidateHttpSession(true)
                 );
         return http.build();
     }
